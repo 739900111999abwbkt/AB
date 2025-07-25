@@ -3,9 +3,10 @@
 <head>
   <meta charset="UTF-8">
   <title>الغرفة الصوتية</title>
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="../style.css">
+  
   <style>
-    /* CSS Styles */
+    /* ========== Global & Body Styles ========== */
     body {
       background: linear-gradient(-45deg, #e3ffe7, #d9e7ff, #fceabb, #f8b500);
       background-size: 400% 400%;
@@ -50,46 +51,19 @@
       background-color: #1e1e1e;
     }
 
-    /* Pinned & VIP */
-    .pinned {
-      border: 3px solid gold !important;
-      box-shadow: 0 0 10px gold !important;
-    }
-    .vip {
-      border: 3px solid gold !important;
-      box-shadow: 0 0 8px gold;
-    }
-
-    /* User Status */
-    .user-status {
-      position: absolute;
-      bottom: 4px;
-      right: 4px;
-      width: 12px;
-      height: 12px;
-      border-radius: 50%;
-      border: 2px solid white;
-    }
-    .online {
-      background-color: #28a745;
-    }
-    .offline {
-      background-color: #6c757d;
-    }
-    .blocked-user {
-      display: none !important;
-    }
-    .blocked {
-      background-color: #ccc !important;
-      opacity: 0.4;
-      pointer-events: none;
-      border: 2px dashed red;
-    }
-
-    /* Crown & Badges */
+    /* ========== User Status & Badges ========== */
     .mic-container {
       position: relative;
       display: inline-block;
+    }
+    .crown {
+      position: absolute;
+      top: -15px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 32px;
+      height: 32px;
+      z-index: 10;
     }
     .mic.admin::after {
       content: "👑";
@@ -132,26 +106,70 @@
       50% { transform: scale(1.2); }
       100% { transform: scale(1); }
     }
+    .vip {
+      border: 3px solid gold !important;
+      box-shadow: 0 0 8px gold;
+    }
+    .user-status {
+      position: absolute;
+      bottom: 4px;
+      right: 4px;
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      border: 2px solid white;
+    }
+    .online {
+      background-color: #28a745;
+    }
+    .offline {
+      background-color: #6c757d;
+    }
+    .blocked-user {
+      display: none !important;
+    }
+    .blocked {
+      background-color: #ccc !important;
+      opacity: 0.4;
+      pointer-events: none;
+      border: 2px dashed red;
+    }
+    .gold-crown {
+      position: absolute;
+      top: -16px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 28px;
+      height: 28px;
+      background: url('gold-crown.png') no-repeat center;
+      background-size: contain;
+    }
 
-    /* Mics */
+    /* ========== Mic & Animation ========== */
     .mic {
       position: relative;
       border-radius: 50%;
       transition: box-shadow 0.3s ease-in-out;
     }
+    .mic-box {
+      background-color: #e0f7fa;
+      padding: 10px;
+      border-radius: 12px;
+      margin: 10px;
+      transition: background 0.5s ease;
+    }
     .mic.active {
-      box-shadow: 0 0 20px 6px rgba(0, 255, 0, 0.7);
       border: 3px solid #00e676 !important;
       box-shadow: 0 0 10px #00e676;
-    }
-    .mic-active {
-      animation: mic-glow 1s infinite;
-      border: 2px solid #ff9800 !important;
     }
     @keyframes mic-glow {
       0% { box-shadow: 0 0 5px #ff9800; }
       50% { box-shadow: 0 0 20px #ff9800; }
       100% { box-shadow: 0 0 5px #ff9800; }
+    }
+    .mic-active {
+      animation: mic-glow 1s infinite;
+      border: 2px solid #ff9800 !important;
     }
     .mic-active::after {
       content: '';
@@ -164,15 +182,16 @@
       border-radius: 50%;
       animation: pulse 1s infinite;
     }
-    .mic-box {
-      background-color: #e0f7fa;
-      padding: 10px;
-      border-radius: 12px;
-      margin: 10px;
-      transition: background 0.5s ease;
+    .mic-name.muted::after {
+      content: " 🔇";
+      color: red;
+    }
+    .muted {
+      filter: grayscale(1);
+      border: 2px dashed red;
     }
 
-    /* Gifts & Reactions */
+    /* ========== Gift & Reactions ========== */
     .bg-gift-5 {
       background-color: #fff9c4 !important;
     }
@@ -221,7 +240,7 @@
       100% { transform: translate(-50%, -50%) scale(1); opacity: 0; }
     }
 
-    /* Other UI Elements */
+    /* ========== Chat & Popups ========== */
     .tooltip:hover::after {
       content: attr(data-tooltip);
       position: absolute;
@@ -247,10 +266,6 @@
       box-shadow: 0 0 5px #aaa;
       direction: rtl;
     }
-    .mic-name.muted::after {
-      content: " 🔇";
-      color: red;
-    }
     .chat-message.bot {
       background-color: #eef0f4;
       border-left: 4px solid #3498db;
@@ -258,36 +273,31 @@
       margin: 5px;
       border-radius: 6px;
     }
-    .muted {
-      filter: grayscale(1);
-      border: 2px dashed red;
+    .pinned {
+      border: 3px solid gold !important;
+      box-shadow: 0 0 10px gold !important;
     }
-
-    /* Toast */
-    #toast {
-      visibility: hidden;
-      min-width: 250px;
-      margin-left: -125px;
-      background-color: #333;
-      color: #fff;
-      text-align: center;
-      border-radius: 10px;
-      padding: 12px;
+    #vote-bar {
       position: fixed;
-      z-index: 9999;
+      bottom: 80px;
       left: 50%;
-      bottom: 30px;
-      font-size: 17px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.2);
-      transition: visibility 0s, opacity 0.5s ease-in-out;
-      opacity: 0;
+      transform: translateX(-50%);
+      background: #fff;
+      padding: 10px 20px;
+      border-radius: 12px;
+      box-shadow: 0 0 6px rgba(0,0,0,0.3);
+      display: none;
+      z-index: 9999;
     }
-    #toast.show {
-      visibility: visible;
-      opacity: 1;
+    #vote-bar button {
+      margin: 0 8px;
+      padding: 6px 12px;
+      background: #007acc;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
     }
-
-    /* Welcome Popups */
     #welcome-popup {
       position: fixed;
       top: 30%;
@@ -317,6 +327,100 @@
       opacity: 0;
       transition: opacity 1s;
     }
+
+    /* ========== Other UI Elements ========== */
+    .night-toggle {
+      position: fixed;
+      top: 10px;
+      left: 10px;
+      background: #444;
+      color: white;
+      padding: 6px 12px;
+      border-radius: 10px;
+      cursor: pointer;
+      z-index: 10000;
+    }
+    #user-join-log {
+      position: fixed;
+      bottom: 10px;
+      left: 10px;
+      background: rgba(0,0,0,0.6);
+      color: white;
+      padding: 8px 12px;
+      border-radius: 10px;
+      font-size: 14px;
+      max-height: 120px;
+      overflow-y: auto;
+      width: 200px;
+      z-index: 10000;
+    }
+    #live-counter {
+      position: fixed;
+      top: 12px;
+      right: 15px;
+      background-color: #007acc;
+      color: white;
+      padding: 8px 12px;
+      border-radius: 10px;
+      font-size: 14px;
+      box-shadow: 0 0 5px #00000070;
+      z-index: 10000;
+    }
+    #top-speakers {
+      position: fixed;
+      top: 55px;
+      left: 15px;
+      background: #222;
+      color: gold;
+      padding: 10px 14px;
+      border-radius: 10px;
+      font-size: 14px;
+      max-height: 120px;
+      overflow-y: auto;
+      z-index: 10000;
+      box-shadow: 0 0 5px #00000090;
+    }
+    #top-speakers h3 {
+      margin-top: 0;
+      font-size: 15px;
+      color: #fff;
+    }
+    #achievements-box {
+      position: fixed;
+      left: 50%;
+      transform: translateX(-50%);
+      bottom: 150px;
+      background: #ffe680;
+      color: #222;
+      padding: 12px 18px;
+      border-radius: 12px;
+      box-shadow: 0 0 8px #00000060;
+      font-size: 14px;
+      display: none;
+      z-index: 9999;
+    }
+    #toast {
+      visibility: hidden;
+      min-width: 250px;
+      margin-left: -125px;
+      background-color: #333;
+      color: #fff;
+      text-align: center;
+      border-radius: 10px;
+      padding: 12px;
+      position: fixed;
+      z-index: 9999;
+      left: 50%;
+      bottom: 30px;
+      font-size: 17px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.2);
+      transition: visibility 0s, opacity 0.5s ease-in-out;
+      opacity: 0;
+    }
+    #toast.show {
+      visibility: visible;
+      opacity: 1;
+    }
   </style>
 
 </head>
@@ -327,24 +431,73 @@
     ⏳ مدة التواجد: <span id="timer">00:00</span>
   </div>
   
+  <div id="entryLog" style="position:fixed;left:20px;bottom:20px;width:250px;max-height:200px;overflow-y:auto;background:#f8f9fa;border:1px solid #ccc;padding:10px;border-radius:10px;font-size:14px;z-index:999;">
+    <strong>📜 سجل الدخول:</strong>
+    <ul id="logList" style="list-style:none;padding:0;margin:0;margin-bottom:10px;"></ul>
+    <strong>🚪 سجل الخروج:</strong>
+    <ul id="exitList" style="list-style:none;padding:0;margin:0;"></ul>
+  </div>
+
+  <div id="pinnedMessage" style="position:fixed;top:60px;left:50%;transform:translateX(-50%);background:#fff3cd;color:#856404;padding:10px 20px;border-radius:10px;border:1px solid #ffeeba;z-index:999;display:none;font-weight:bold;"></div>
+  
   <div id="online-counter" style="position:fixed;top:10px;left:10px;background:#007bff;color:white;padding:8px 14px;border-radius:12px;font-size:16px;z-index:999;">
     👥 المتصلين الآن: <span id="onlineCount">0</span>
   </div>
-
-  <button onclick="window.location.href='login.html'" style="position:absolute;top:20px;left:20px;padding:10px 15px;border:none;border-radius:8px;background:#dc3545;color:white;font-weight:bold;cursor:pointer;">
-    🚪 خروج
-  </button>
   
-  <button onclick="toggleDarkMode()" style="position:fixed;bottom:120px;left:10px;z-index:9999;padding:6px 12px;border-radius:10px;background:#333;color:white;border:none">
-    🌙 الوضع الليلي
-  </button>
+  <div style="position:fixed;top:80px;left:20px;background:#fff;padding:10px 15px;border-radius:10px;box-shadow:0 0 5px #aaa;">
+    <strong>المستخدم:</strong> <span id="user-badge">جارٍ التحميل...</span>
+  </div>
   
-  <div id="welcomeBanner" style="position:fixed;top:40px;left:50%;transform:translateX(-50%);background:#4CAF50;color:white;padding:10px 30px;border-radius:10px;font-size:18px;font-weight:bold;z-index:999;opacity:0;transition:opacity 1s;">
-    🎉 مرحبًا بك في غرفة AirChat!
+  <div id="userDisplay" style="position:fixed;top:160px;left:20px;background:#e0f7fa;padding:10px 15px;border-radius:10px;">
+    <strong>👤 المستخدم:</strong> <span id="userBadgeName">جارٍ التحميل...</span>
   </div>
 
+  <div id="topUsersPanel" style="position:fixed;top:60px;right:15px;width:220px;background:#fff;border:2px solid #2196f3;padding:10px;border-radius:10px;box-shadow:0 0 10px rgba(0,0,0,0.2);font-size:14px;z-index:9999">
+    <div style="text-align:center;font-weight:bold;color:#2196f3;margin-bottom:5px">
+      🏆 أفضل 5 مستخدمين
+    </div>
+    <ol id="topUsersList" style="padding-left:18px;margin:0;color:#333">
+      <li>مستخدم 1 - 300 XP</li>
+      <li>مستخدم 2 - 240 XP</li>
+      <li>مستخدم 3 - 180 XP</li>
+      <li>مستخدم 4 - 120 XP</li>
+      <li>مستخدم 5 - 100 XP</li>
+    </ol>
+  </div>
+  
+  <div id="honorBoard" style="position:fixed;top:10px;left:10px;padding:10px;background:#fff3cd;border-radius:12px;border:1px solid #ffeb3b;color:#000;font-size:14px;width:200px;">
+    <strong>🏅 لوحة الشرف:</strong>
+    <ul id="honorList" style="list-style:none;padding:5px 0;margin:0;">
+      <li>1. -</li>
+      <li>2. -</li>
+      <li>3. -</li>
+    </ul>
+  </div>
+
+  <div id="welcome-msg" style="position:fixed;top:20px;right:20px;background:#007bff;color:#fff;padding:10px 20px;border-radius:10px;z-index:1000;box-shadow:0 2px 6px rgba(0,0,0,0.2);display:none;">
+    👋 أهلاً بك في الغرفة!
+  </div>
+
+  <div id="status-bar" style="position:fixed;bottom:0;left:0;width:100%;background:#333;color:#fff;text-align:center;padding:8px;font-size:14px;z-index:999;">
+    👥 عدد المستخدمين في الغرفة: <span id="user-count">10</span>
+  </div>
+  
+  <button onclick="changeBackground()">🖼️ تغيير الخلفية</button>
+  <button onclick="window.location.href='../login.html'" style="position:absolute;top:20px;left:20px;padding:10px 15px;border:none;border-radius:8px;background:#dc3545;color:white;font-weight:bold;cursor:pointer;">🚪 خروج</button>
+  <button onclick="toggleMusic()" style="position:absolute;top:20px;right:20px;padding:10px 15px;border:none;border-radius:8px;background:#28a745;color:white;font-weight:bold;cursor:pointer;">🎵 تشغيل/إيقاف الموسيقى</button>
+  <button onclick="toggleMicLock()" style="position:fixed;bottom:20px;right:20px;padding:10px 15px;background:#dc3545;color:white;border:none;border-radius:10px;z-index:1000;">🔒 قفل/فتح المايك</button>
+  <button onclick="assignModerator()" style="position:fixed;bottom:20px;left:20px;padding:10px 15px;background:#28a745;color:white;border:none;border-radius:10px;z-index:1000;">🛡️ تعيين مشرف</button>
+  <button onclick="banUser()" style="position:fixed;bottom:80px;left:20px;padding:10px 15px;background:#dc3545;color:white;border:none;border-radius:10px;z-index:1000;">🚫 حظر مستخدم</button>
+  <button onclick="reportUser()" style="position:fixed;bottom:140px;left:20px;padding:10px 15px;background:#ffc107;color:black;border:none;border-radius:10px;z-index:1000;">⚠️ تبليغ عن مستخدم</button>
+  <button onclick="toggleDarkMode()" style="position:fixed;top:20px;left:20px;padding:10px 15px;background:#343a40;color:white;border:none;border-radius:10px;z-index:1000;">🌙 تفعيل الوضع الليلي</button>
+  <button onclick="document.getElementById('topUsersList').style.display='block'; showTopUsers();" style="position:fixed;top:20px;right:20px;padding:10px 15px;background:#6f42c1;color:white;border:none;border-radius:10px;z-index:1000;">💫 عرض لوحة الشرف</button>
+  <button onclick="sendGift()" style="position:fixed;bottom:150px;right:20px;padding:10px 15px;background:#ff9800;color:white;border:none;border-radius:10px;cursor:pointer;">🎁 أرسل هدية</button>
+  <button onclick="showUserRank()" style="position:fixed;bottom:15px;right:15px;padding:10px 20px;background:#4caf50;color:white;border:none;border-radius:8px;font-size:16px;box-shadow:0 0 8px rgba(0,0,0,0.2);z-index:999">📊 معرفة ترتيبي</button>
+  <button onclick="copyRoomLink()" style="padding:10px 18px;background:#00b894;color:white;border:none;border-radius:8px;font-size:16px">🔗 مشاركة رابط الغرفة</button>
+  
   <div id="mainRoom">
     <h2>🎤 الغرفة الصوتية</h2>
+    <img src="gift-box.png" alt="gift" onclick="sendGift()" style="width:80px; cursor:pointer;" title="صندوق الهدايا">
     <p id="user-count">👥 عدد المستخدمين: 3</p>
     
     <div id="mics">
@@ -367,19 +520,18 @@
     </div>
   </div>
   
-  <audio id="mic-audio" src="mic-sound.mp3"></audio>
-  <audio id="bg-music" src="bg-music.mp3" autoplay loop style="display:none;"></audio>
-  <audio id="welcomeAudio" src="welcome.mp3" autoplay></audio>
-  <div id="toast">📩 وصلت رسالة جديدة!</div>
+  <audio id="mic-audio" src="../mic-sound.mp3"></audio>
+  <audio id="bg-music" src="../bg-music.mp3" autoplay loop style="display:none;"></audio>
+  <audio id="welcomeAudio" src="../welcome.mp3" autoplay></audio>
 
-  <script src="chat.js"></script>
-  <script src="bg.js"></script>
-  <script src="gift.js"></script>
-  <script src="user.js"></script>
-  <script src="sound.js"></script>
-  <script src="move.js"></script>
-  <script src="music.js"></script>
-  
+  <script src="../chat.js"></script>
+  <script src="../bg.js"></script>
+  <script src="../gift.js"></script>
+  <script src="../user.js"></script>
+  <script src="../sound.js"></script>
+  <script src="../move.js"></script>
+  <script src="../music.js"></script>
+
   <script>
     // Functions
     function copyUserId(userId) {
@@ -388,6 +540,7 @@
       });
     }
 
+    // Function to show a gift animation
     function showGiftAnimation() {
       const anim = document.createElement("div");
       anim.className = "gift-animation";
@@ -395,7 +548,7 @@
       document.body.appendChild(anim);
       setTimeout(() => anim.remove(), 1000);
     }
-
+    
     function showGiftEffect() {
       const box = document.getElementById("gift-animation");
       box.style.display = "block";
@@ -404,6 +557,7 @@
       }, 2000);
     }
     
+    // Function to start a mic countdown
     function startMicCountdown(micId, seconds) {
       const mic = document.getElementById(micId);
       if (!mic) return;
@@ -439,6 +593,7 @@
       }, 1000);
     }
     
+    // Voting functions
     let votes = { yes: 0, no: 0 };
     function showVoteBar() {
       document.getElementById('vote-bar').style.display = 'block';
@@ -457,6 +612,7 @@
       if (user) user.classList.add("vip");
     }
 
+    // Achievement function
     function showAchievement(msg) {
       const box = document.getElementById("achievements-box");
       box.textContent = "🏆 لقد حصلت على إنجاز: " + msg;
@@ -464,14 +620,17 @@
       setTimeout(() => box.style.display = "none", 4000);
     }
 
+    // Toggle Dark Mode
     function toggleDarkMode() {
       document.body.classList.toggle("dark-mode");
     }
 
+    // Welcome popup
     function closeWelcomePopup() {
       document.getElementById("welcome-popup").style.display = "none";
     }
     
+    // Copy room link
     function copyRoomLink() {
       const dummyInput = document.createElement("input");
       dummyInput.setAttribute("value", window.location.href);
@@ -482,23 +641,27 @@
       alert("📋 تم نسخ رابط الغرفة!");
     }
     
+    // Exit room
     function exitRoom() {
       if (confirm("هل تريد الخروج من الغرفة؟")) {
         window.location.href = "index.html";
       }
     }
     
+    // Play sound on new message
     function playMessageSound() {
-      const msgSound = new Audio("new-message.mp3");
+      const msgSound = new Audio("../new-message.mp3");
       msgSound.play().catch(() => {});
     }
 
+    // Show toast notification
     function showToast() {
       var x = document.getElementById("toast");
       x.className = "show";
       setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
     }
     
+    // Simulate mic glowing
     function simulateMicGlow() {
       const mics = document.querySelectorAll('.mic');
       mics.forEach(mic => mic.classList.remove('active'));
@@ -512,12 +675,16 @@
     window.addEventListener('DOMContentLoaded', () => {
       // Show welcome banner
       const banner = document.getElementById('welcomeBanner');
-      banner.style.opacity = 1;
-      setTimeout(() => { banner.style.opacity = 0; }, 5000);
+      if (banner) {
+        banner.style.opacity = 1;
+        setTimeout(() => { banner.style.opacity = 0; }, 5000);
+      }
 
       // Play welcome audio
-      const welcomeAudio = new Audio('welcome.mp3');
-      welcomeAudio.play().catch(() => {});
+      const welcomeAudio = document.getElementById("welcomeAudio");
+      if (welcomeAudio) {
+        welcomeAudio.play().catch(() => {});
+      }
       
       // Set user count
       const countSpan = document.getElementById('user-count');
@@ -538,31 +705,51 @@
       
       // Show welcome popup
       setTimeout(() => {
-        document.getElementById("welcome-popup").style.display = "block";
+        const welcomePopup = document.getElementById("welcome-popup");
+        if (welcomePopup) welcomePopup.style.display = "block";
       }, 1000);
       
       // Show achievements
       setTimeout(() => showAchievement("أول دخول!"), 2000);
-    });
-
-    // Simulated actions for demonstration
-    setInterval(simulateMicGlow, 3000);
-    setInterval(() => {
-      simulatedUserCount = Math.max(1, simulatedUserCount + (Math.random() > 0.5 ? 1 : -1));
-      document.getElementById("userCountNumber").textContent = simulatedUserCount;
-    }, 5000);
-    
-    // Gift animation setup
-    window.addEventListener("load", () => {
+      
+      // Link gift animation to button
       const sendBtn = document.getElementById("sendGiftBtn");
       if (sendBtn) {
         sendBtn.addEventListener("click", showGiftAnimation);
       }
-    });
+      
+      // Link new message sound and toast to chat
+      const chatBox = document.getElementById("chatBox");
+      if (chatBox) {
+        const observer = new MutationObserver(() => {
+          playMessageSound();
+          showToast();
+        });
+        observer.observe(chatBox, { childList: true });
+      }
 
-    setTimeout(() => setVIP("mic-4"), 1500);
-    setTimeout(() => blockUserById("mic-3"), 3000);
-    setTimeout(() => showVoteBar(), 4000);
+      // Simulated actions for demonstration
+      setTimeout(() => setVIP("mic-4"), 1500);
+      setTimeout(() => blockUserById("mic-3"), 3000);
+      setTimeout(() => showVoteBar(), 4000);
+
+      let simulatedUserCount = 1;
+      setInterval(() => {
+        simulatedUserCount = Math.max(1, simulatedUserCount + (Math.random() > 0.5 ? 1 : -1));
+        const userCountNumber = document.getElementById("userCountNumber");
+        if (userCountNumber) userCountNumber.textContent = simulatedUserCount;
+      }, 5000);
+
+      setInterval(simulateMicGlow, 3000);
+
+      const backgrounds = ['../bg-rank1.jpg', '../bg-rank2.jpg', '../bg-rank3.jpg'];
+      let current = 0;
+      setInterval(() => {
+        document.body.style.backgroundImage = 'url(' + backgrounds[current] + ')';
+        document.body.style.backgroundSize = 'cover';
+        current = (current + 1) % backgrounds.length;
+      }, 10000);
+    });
   </script>
 
 </body>
