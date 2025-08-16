@@ -28,23 +28,23 @@
   </div> id="mainRoom">
     <h2>🎤 الغرفة الصوتية</h2>
     <button onclick="changeBackground()">🖼️ تغيير الخلفية</button>
-    <img src="gift-box.png" alt="gift" onclick="sendGift()" style="width:80px; cursor:pointer;" title="صندوق الهدايا">
+    <img src="../../assets/gift-box.png" alt="gift" onclick="sendGift()" style="width:80px; cursor:pointer;" title="صندوق الهدايا">
 
     <p id="user-count">👥 عدد المستخدمين: 3</p>
     <button onclick="window.location.href='login.html'" style="position:absolute;top:20px;left:20px;padding:10px 15px;border:none;border-radius:8px;background:#dc3545;color:white;font-weight:bold;cursor:pointer;">🚪 خروج</button>
     <div id="mics">
       <div class="mic">
-        <img src="../../../../default-avatar.png" alt="User Avatar" class="mic-avatar">
+        <img src="../../assets/default-avatar.png" alt="User Avatar" class="mic-avatar">
         <span class="mic-name">أحمد</span>
         <button class="mute-btn">Mute</button>
       </div>
       <div class="mic">
-        <img src="../../../../default-avatar.png" alt="User Avatar" class="mic-avatar">
+        <img src="../../assets/default-avatar.png" alt="User Avatar" class="mic-avatar">
         <span class="mic-name">ليلى</span>
         <button class="mute-btn">Mute</button>
       </div>
       <div class="mic">
-        <img src="../../../../default-avatar.png" alt="User Avatar" class="mic-avatar">
+        <img src="../../assets/default-avatar.png" alt="User Avatar" class="mic-avatar">
         <span class="mic-name">سارة</span>
         <button class="mute-btn">Mute</button>
       </div>
@@ -64,15 +64,15 @@
       <button onclick="closePopup()">❌ إغلاق</button>
     </div>
 
-    <audio id="mic-audio" src="mic-sound.mp3"></audio>
+    <audio id="mic-audio" src="../../assets/mic-sound.mp3"></audio>
 
   <button onclick="toggleMusic()" style="position:absolute;top:20px;right:20px;padding:10px 15px;border:none;border-radius:8px;background:#28a745;color:white;font-weight:bold;cursor:pointer;">🎵 تشغيل/إيقاف الموسيقى</button>
   <audio id="bg-music" autoplay loop>
 
-    <source src="bg-music.mp3" type="audio/mpeg">
+    <source src="../../assets/bg-music.mp3" type="audio/mpeg">
   </audio>
   <div class="stats" id="statsBox">📊 إحصائيات:</div>
-  <audio id="bgMusic" src="bg-music.mp3" loop autoplay></audio>
+  <audio id="bgMusic" src="../../assets/bg-music.mp3" loop autoplay></audio>
 
   <button onclick="toggleMicLock()" style="position:fixed;bottom:20px;right:20px;padding:10px 15px;background:#dc3545;color:white;border:none;border-radius:10px;z-index:1000;">
   🔒 قفل/فتح المايك
@@ -212,7 +212,7 @@
     🎉 مرحبًا بك في غرفة AirChat!
   </div>
 
-  <audio id="welcomeAudio" src="welcome.mp3" autoplay></audio>
+  <audio id="welcomeAudio" src="../../assets/welcome.mp3" autoplay></audio>
 
   <div id="toast">📩 وصلت رسالة جديدة!</div>
 
@@ -228,7 +228,7 @@
     🚪 خروج
   </button>
 
-  <audio id="bg-music" src="bg-music.mp3" autoplay loop style="display:none;"></audio>
+  <audio id="bg-music" src="../../assets/bg-music.mp3" autoplay loop style="display:none;"></audio>
 
   <div id="welcome-msg" style="position:fixed;top:20px;right:20px;background:#007bff;color:#fff;padding:10px 20px;border-radius:10px;z-index:1000;box-shadow:0 2px 6px rgba(0,0,0,0.2);display:none;">
     👋 أهلاً بك في الغرفة!
@@ -262,7 +262,7 @@
     👋 مرحبًا بك في الغرفة يا بطل!
   </div>
 
-  <audio id="msgSound" src="new-message.mp3" preload="auto"></audio>
+  <audio id="msgSound" src="../../assets/new-message.mp3" preload="auto"></audio>
 
   <div id="attendance-counter" style="position:fixed; top:10px; right:10px; background:#2196f3;
   color:white; padding:10px 16px; border-radius:8px; font-size:16px; z-index:999;">

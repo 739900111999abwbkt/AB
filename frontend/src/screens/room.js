@@ -102,7 +102,7 @@ function copyRoomLink() {
 }
 
 function playMessageSound() {
-  const msgSound = new Audio("new-message.mp3");
+  const msgSound = new Audio("../../assets/new-message.mp3");
   msgSound.play().catch(() => {});
 }
 
@@ -151,7 +151,7 @@ function sendClap() {
   clapCount++;
   const display = document.getElementById("clapDisplay");
   display.textContent = "👏 × " + clapCount;
-  const audio = new Audio("new-message.mp3");
+  const audio = new Audio("../../assets/new-message.mp3");
   audio.play();
   setTimeout(() => {
     display.textContent = "";
@@ -316,7 +316,7 @@ window.addEventListener("load", () => {
   });
 
   // Welcome audio on load
-  const welcomeAudio = new Audio('welcome.mp3');
+  const welcomeAudio = new Audio('../../assets/welcome.mp3');
   welcomeAudio.play();
 
   // Welcome message
@@ -388,7 +388,7 @@ window.addEventListener("load", () => {
   const topUserMic = document.querySelector(".mic-container#top-user");
   if (topUserMic) {
     const crown = document.createElement("img");
-    crown.src = "gold-crown.png";
+    crown.src = "../../assets/gold-crown.png";
     crown.className = "gold-crown";
     topUserMic.appendChild(crown);
   }
@@ -396,7 +396,7 @@ window.addEventListener("load", () => {
   // Top user join sound
   const isTopUser = document.body.classList.contains("top-user");
   if (isTopUser) {
-    const audio = new Audio("top-user-join.mp3");
+    const audio = new Audio("../../assets/top-user-join.mp3");
     audio.play();
   }
 
@@ -409,9 +409,9 @@ window.addEventListener("load", () => {
 
   // Background switcher
   const backgrounds = [
-    'bg-rank1.jpg',
-    'bg-rank2.jpg',
-    'bg-rank3.jpg'
+    '../../assets/bg-rank1.jpg',
+    '../../assets/bg-rank2.jpg',
+    '../../assets/bg-rank3.jpg'
   ];
   let current = 0;
   function switchBackground() {
@@ -466,9 +466,9 @@ window.addEventListener("load", () => {
 
   // Rank backgrounds
   const topRanks = {
-    1: "bg-rank1.jpg",
-    2: "bg-rank2.jpg",
-    3: "bg-rank3.jpg"
+    1: "../../assets/bg-rank1.jpg",
+    2: "../../assets/bg-rank2.jpg",
+    3: "../../assets/bg-rank3.jpg"
   };
   for (let i = 1; i <= 3; i++) {
     const mic = document.getElementById("mic" + i);
