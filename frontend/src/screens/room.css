@@ -60,7 +60,7 @@ body.night {
 .gold-crown {
   width: 28px;
   height: 28px;
-  background: url('gold-crown.png') no-repeat center;
+  background: url('../../assets/gold-crown.png') no-repeat center;
   background-size: contain;
   top: -16px;
 }
